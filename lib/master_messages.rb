@@ -1,6 +1,3 @@
-require './lib/mastermind'
-require './lib/runner'
-
 class MasterMessage
   def welcome
     "Welcome to MASTERMIND\nWould you like to (p)lay, read the (i)nstructions, or (q)uit?"
@@ -12,7 +9,8 @@ class MasterMessage
     \nFor example, it will appear as 'yggb'.
     \nYou can guess the sequence by inputting a sequence of four letters.
     \nYou will receive feedback telling you how many colors are correct, and how many are in the right place.
-    \nBased on the feedback you can guess again until you get the sequence correct."
+    \nBased on the feedback you can guess again until you get the sequence correct.
+    \nWould you like to (p)lay or (q)uit?"
   end
 
   def invalid_guess_length
@@ -32,13 +30,4 @@ class MasterMessage
     \nWhat's your guess?"
   end
 
-  def feedback
-    "#{@guessed_pins} has #{@correct_colors} of the correct elements with #{@correct_pin_places} in the correct positions.
-    \nYou've taken #{@guesses} guess(es)"
-  end
-
-  def game_end
-    "Congratulations you win! You guessed the sequence 'correct_sequence' in 'num_guesses' guesses over 'num_min' minutes, 'num_secs' seconds.
-    \nDo you want to (p)lay again or (q)uit?"
-  end
 end

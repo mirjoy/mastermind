@@ -1,4 +1,3 @@
-require './lib/master_messages'
 
 class Mastermind
 
@@ -6,55 +5,43 @@ class Mastermind
   attr_accessor :secret_pins, :guessed_pins
 
   def initialize
-    @msg = MasterMessage.new
-    @correct_pin_places = 0
-    @correct_colors = 0
     @available_colors = ['r','g','b','y']
+    @guessed_pins = ''
   end
 
   def generate_secret_pins
-    secret_pins = (available_colors * 4).shuffle.sample(4).join
+    @secret_pins = (available_colors * 4).shuffle.sample(4).join
   end
 
-  def guess_pin_places
-    guessed_pins = gets.chomp.downcase
+  def guess_length_is_valid?(input)
+    input.length == secret_pins.length
   end
 
-  def guessed_pins_unique
-    guessed_pins.chars.uniq
+  def guess_colors_are_valid?(input)
+    input.chars.uniq.all? {|color| available_colors.include?(color)}
   end
 
-  def guess_length_is_valid?
-    guessed_pins.length == secret_pins.length
-  end
-
-  def guess_colors_are_valid?
-    guessed_pins_unique.all? {|color| available_colors.include?(color)}
-  end
-
-  def check_correct_positions
+  def check_correct_positions(input)
     num_arr = (0..secret_pins.length - 1).to_a
+    @correct_pin_places = 0
 
     num_arr.each do |num|
-      if secret_pins[num] == guessed_pins[num]
+      if secret_pins[num] == input[num]
         @correct_pin_places += 1
       end
     end
   end
 
-  def check_correct_colors
+  def check_correct_colors(input)
+    @correct_colors = 0
+
     secret_pins.chars.uniq.each do |color|
-      if guessed_pins_unique.include?(color)
+      if input.chars.uniq.include?(color)
         @correct_colors += 1
       end
     end
   end
 
-  def execute(input)
-    if input == secret_pins
-       msg.game_end
-    else
-       msg.make_guess
-    end
-  end
+
+
 end
