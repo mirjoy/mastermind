@@ -30,4 +30,9 @@ class MasterMessage
     \nWhat's your guess?"
   end
 
+  def winning_message
+    "Congratulations you win! You guessed the sequence #{input} with #{guesses} guesses in #{final_time[0]} minutes, #{final_time[1]} seconds.
+    \nDo you want to (p)lay again or (q)uit?"
+  end
+
 end
