@@ -1,15 +1,21 @@
 
 class Mastermind
 
-  attr_reader :msg, :correct_pin_places, :correct_colors, :available_colors
-  attr_accessor :secret_pins, :guessed_pins
+  attr_reader :msg, :available_colors
+  attr_accessor :secret_pins, :start_time, :guesses
 
   def initialize
     @available_colors = ['r','g','b','y']
   end
 
+  def start
+    @start_time = Time.new
+    @guesses = 0
+    generate_secret_pins
+  end
+
   def winner?(input)
-    secret_pins == guessed_pins
+    secret_pins == input
   end
 
   def generate_secret_pins
@@ -17,7 +23,7 @@ class Mastermind
   end
 
   def guess_length_is_valid?(input)
-    guessed_pins.length == secret_pins.length
+    input.length == secret_pins.length
   end
 
   def guess_colors_are_valid?(input)
@@ -30,25 +36,41 @@ class Mastermind
 
   def check_correct_positions(input)
     num_arr = (0..secret_pins.length - 1).to_a
-    @correct_pin_places = 0
+    correct_positions = 0
 
     num_arr.each do |num|
-      if secret_pins[num] == guessed_pins[num]
-        @correct_pin_places += 1
+      if secret_pins[num] == input[num]
+        correct_positions += 1
       end
     end
+
+    return correct_positions
   end
 
   def check_correct_colors(input)
-    @correct_colors = 0
+    correct_colors = 0
 
     secret_pins.chars.uniq.each do |color|
-      if guessed_pins.chars.uniq.include?(color)
-        @correct_colors += 1
+      if input.chars.uniq.include?(color)
+        correct_colors += 1
       end
+    end
+
+    return correct_colors
+  end
+
+  def guess(input)
+    if everything_valid?(input)
+      @guesses += 1
+      correct_color = check_correct_colors(input)
+      correct_positions = check_correct_positions(input)
+      [correct_color, correct_positions]
+    else
+      puts "Your guess is invalid."
     end
   end
 
-
-
+  def game_time
+    ((Time.now - Time.at(start_time)).to_i).divmod(60)
+  end
 end
