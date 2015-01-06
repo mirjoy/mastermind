@@ -2,11 +2,15 @@
 class Mastermind
 
   attr_reader :msg, :correct_pin_places, :correct_colors, :available_colors
-  attr_accessor :secret_pins, :guessed_pins
+  attr_accessor :secret_pins, :guessed_pins, :input
 
   def initialize
     @available_colors = ['r','g','b','y']
-    @guessed_pins = ''
+    @input = ''
+  end
+
+  def winner?(input)
+    @secret_pins == input
   end
 
   def generate_secret_pins
@@ -19,6 +23,10 @@ class Mastermind
 
   def guess_colors_are_valid?(input)
     input.chars.uniq.all? {|color| available_colors.include?(color)}
+  end
+
+  def everything_valid?(input)
+    guess_length_is_valid?(input) && guess_colors_are_valid?(input)
   end
 
   def check_correct_positions(input)
