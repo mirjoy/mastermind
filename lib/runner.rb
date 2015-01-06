@@ -9,7 +9,7 @@ class Game
   def initialize
     @mastermind = Mastermind.new
     @msg = MasterMessage.new
-    @input = ''
+    @input = input
     @guesses
   end
 

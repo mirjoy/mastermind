@@ -16,14 +16,14 @@ class MastermindTest < Minitest::Test
 
   def test_it_wins
     mastermind.secret_pins = "BBGB"
-    mastermind.input = "BBGB"
-    assert mastermind.winner?(mastermind.input)
+    mastermind.guessed_pins = "BBGB"
+    assert mastermind.winner?(mastermind.guessed_pins)
   end
 
   def test_it_loses
     mastermind.secret_pins = "BBGB"
-    mastermind.input = "BGGB"
-    refute mastermind.winner?(mastermind.input)
+    mastermind.guessed_pins = "BGGB"
+    refute mastermind.winner?(mastermind.guessed_pins)
   end
 
   def test_it_knows_how_many_positions_are_right
@@ -63,15 +63,15 @@ class MastermindTest < Minitest::Test
   end
 
   def test_everything_valid
-    mastermind.input = "rggb"
+    mastermind.guessed_pins = "rggb"
     mastermind.secret_pins = "rgrg"
-    assert mastermind.everything_valid?(mastermind.input)
+    assert mastermind.everything_valid?(mastermind.guessed_pins)
   end
 
   def test_everything_not_valid
-    mastermind.input = "rxgbg"
+    mastermind.guessed_pins = "rxgbg"
     mastermind.secret_pins = "rgrg"
-    refute mastermind.everything_valid?(mastermind.input)
+    refute mastermind.everything_valid?(mastermind.guessed_pins)
   end
 
 end
