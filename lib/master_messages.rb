@@ -20,12 +20,12 @@ class MasterMessage
       "That is not a valid choice. Please select (p)lay, read the (i)nstructions, or (q)uit."
   end
 
-  def invalid_guess_length
-     "That is an invalid number of characters. Please choose 4 colors."
+  def invalid_guess_length(num_pins)
+     "That is an invalid number of characters. Please choose #{num_pins} colors."
   end
 
-  def invalid_colors
-    "That is an invalid choice of color. Please choose (r)ed,(g)reen, (b)lue, or (y)ellow."
+  def invalid_colors(colors)
+    "That is an invalid choice of color. Please choose from the following: #{colors}."
   end
 
   def make_guess
@@ -36,8 +36,17 @@ class MasterMessage
     puts "Solution: #{secret_pins}. You guessed #{input}. You have #{correct_colors} of the correct elements with #{correct_pin_places} in the correct positions.\nYou've taken #{guesses} guess(es)."
   end
 
-  def game_instructions
-    "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow.\nUse (q)uit at any time to end the game.
+  def choose_level
+    "Which level would you like to play?
+    \n(b)eginner with four pins and four colors
+    \n(i)ntermediate with six pins and five colors
+    \n(a)dvanced with eight pins and six colors"
+  end
+
+  def game_instructions(level, pin_num, colors)
+    "I have generated a #{level} sequence with #{pin_num} elements made up of:
+    \n#{colors}.
+    \nUse (q)uit at any time to end the game.
     \nWhat's your guess?"
   end
 

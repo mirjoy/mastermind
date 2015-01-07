@@ -1,7 +1,8 @@
 require 'pry'
 require 'time'
-require_relative 'mastermind'
-require_relative 'master_messages'
+require 'colored'
+require './lib/mastermind'
+require './lib/master_messages'
 
 class Game
   attr_reader :msg, :mastermind
@@ -15,39 +16,38 @@ class Game
     gets.chomp.downcase
   end
 
-  def menu
-    puts msg.welcome
-    input = ""
-
-    while input != 'q'
-      puts msg.initial_instructions
-      input = get_input
-
-      case input
-      when 'i'
-        puts msg.instructions
-      when 'p'
-        play
-      when 'q'
-        puts "Seeya"
-        break
-      else
-        puts msg.invalid_menu_choice
-      end
-    end
-  end
-
   def quitting?(input)
     ["exit", "q", "quit", "die!"].include?(input)
   end
 
+  def check_input_valid(input)
+    until mastermind.everything_valid?(input)
+      if !mastermind.guess_length_is_valid?(input)
+        puts msg.invalid_guess_length(mastermind.num_pins)
+      else !mastermind.guess_colors_are_valid?(mastermind.available_color_string)
+        puts msg.invalid_colors(mastermind.available_color_string)
+      end
+      puts msg.make_guess
+      input = get_input
+    end
+    input
+  end
+
   def play
     mastermind.start
-    puts msg.game_instructions
 
+    puts msg.choose_level
+    input = get_input
+    mastermind.select_level(input)
+
+    puts msg.game_instructions(mastermind.level,
+                              mastermind.num_pins,
+                              mastermind.available_color_string)
     input = get_input
 
     until mastermind.winner?(input) || quitting?(input)
+      check_input_valid(input)
+
       feedback = mastermind.guess(input)
       if feedback
         correct_colors = feedback[0]
@@ -69,7 +69,5 @@ class Game
       puts msg.congrats(@input, @guesses, final_time[0], final_time[1])
     end
   end
-end
 
-new_game = Game.new
-new_game.menu
+end
