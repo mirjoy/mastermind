@@ -13,8 +13,7 @@ class MasterMessage
     \nFor example, it will appear as 'yggb'.
     \nYou can guess the sequence by inputting a sequence of four letters.
     \nYou will receive feedback telling you how many colors are correct, and how many are in the right place.
-    \nBased on the feedback you can guess again until you get the sequence correct.
-    \nWould you like to (p)lay or (q)uit?"
+    \nBased on the feedback you can guess again until you get the sequence correct."
   end
 
   def invalid_menu_choice
