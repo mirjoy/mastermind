@@ -1,5 +1,5 @@
 require './lib/master_messages'
-require './lib/game'
+require './lib/game_runner'
 
 class Menu
   attr_reader :msg, :game
@@ -25,12 +25,10 @@ class Menu
       when 'q'
         puts "Hasta la bye bye."
         break
-      else
-        puts msg.invalid_menu_choice
       end
     end
   end
 end
 
-new_game = Menu.new
-new_game.game_menu
+# new_game = Menu.new
+# new_game.game_menu

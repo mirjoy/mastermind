@@ -1,6 +1,5 @@
 require 'pry'
 require 'time'
-require 'colored'
 require './lib/mastermind'
 require './lib/master_messages'
 
@@ -30,23 +29,27 @@ class Game
       puts msg.make_guess
       input = get_input
     end
-    input
+    return input
   end
 
   def play
     mastermind.start
+    input = ''
 
-    puts msg.choose_level
-    input = get_input
+    until mastermind.valid_level_choice?(input)
+      puts msg.choose_level
+      input = get_input
+    end
+
     mastermind.select_level(input)
-
     puts msg.game_instructions(mastermind.level,
                               mastermind.num_pins,
                               mastermind.available_color_string)
     input = get_input
 
     until mastermind.winner?(input) || quitting?(input)
-      check_input_valid(input)
+      input = check_input_valid(input)
+      break if mastermind.winner?(input)
 
       feedback = mastermind.guess(input)
       if feedback
@@ -58,10 +61,9 @@ class Game
                           correct_colors,
                           correct_positions,
                           mastermind.guesses)
+        puts msg.make_guess
+        input = get_input
       end
-
-      puts msg.make_guess
-      input = get_input
     end
 
     if mastermind.winner?(input)

@@ -1,5 +1,3 @@
-require 'colored'
-
 class Mastermind
 
   attr_reader   :msg
@@ -13,9 +11,9 @@ class Mastermind
                 :available_colors
 
   def initialize
-    @available_colors = ['r','g','b','y']
-    @available_color_string = '(r)ed'.red+', ' +'(g)reen'.green + ', ' + '(b)lue'.blue + ', ' + '(y)ellow'.yellow
-    @level = ''
+    @level = "beginner"
+    @available_colors = ['r', 'g', 'b', 'y']
+    @available_color_string = '(r)ed, (g)reen, (b)lue, and (y)ellow'
     @num_pins = 4
   end
 
@@ -85,19 +83,26 @@ class Mastermind
     case input
       when 'b'
         @level = "beginner"
+        @available_colors = ['r', 'g', 'b', 'y']
+        @available_color_string = '(r)ed, (g)reen, (b)lue, and (y)ellow'
+        @num_pins = 4
       when 'i'
         @level = "intermediate"
-        @available_colors.push('w')
-        @available_color_string = available_color_string + ", " + "(w)hite".white
+        @available_colors = ['r', 'g', 'b', 'y', 'w']
+        @available_color_string = '(r)ed, (g)reen, (b)lue, (y)ellow and (w)hite'
         @num_pins = 6
       when 'a'
         @level = "advanced"
-        @available_colors.push('w', 'm')
-        @available_color_string = available_color_string + "," + "(w)hite".white + "(m)agenta".magenta
+        @available_colors = ['r', 'g', 'b', 'y', 'w', 'm']
+        @available_color_string = '(r)ed, (g)reen, (b)lue, (y)ellow, (w)hite, and (m)agenta'
         @num_pins = 8
       end
       generate_secret_pins
   end
 
+  def valid_level_choice?(input)
+    valid_choices = ['b', 'i', 'a']
+    valid_choices.include?(input)
+  end
 
 end

@@ -8,10 +8,11 @@ class MasterMessage
   end
 
   def instructions
-    "The computer will generate a series of four letters representing randomly assigned colors.
-    \nThe four colors it will choose from are (r)ed, (g)reen, (b)lue, and (y)ellow.
-    \nFor example, it will appear as 'yggb'.
-    \nYou can guess the sequence by inputting a sequence of four letters.
+    "The computer will generate a series of letters representing randomly assigned colors.
+    \nThe four colors it will choose from if you play as a beginner are (r)ed, (g)reen, (b)lue, and (y)ellow.
+    \n(For the intermediate level (w)hite is added and for the advanced level both (w)hite and (m)agenta are included.
+    \nA beginner sequence might appear as 'yggb'.
+    \nGuess the sequence by inputting a sequence of letters. (4 for beginner, 6 for intermediate, 8 for advanced.)
     \nYou will receive feedback telling you how many colors are correct, and how many are in the right place.
     \nBased on the feedback you can guess again until you get the sequence correct."
   end
@@ -26,6 +27,10 @@ class MasterMessage
 
   def invalid_colors(colors)
     "That is an invalid choice of color. Please choose from the following: #{colors}."
+  end
+
+  def invalid_choice
+    "That is an invalid choice."
   end
 
   def make_guess
@@ -51,8 +56,7 @@ class MasterMessage
   end
 
   def congrats(input, guesses, final_time, final_time2)
-    "Congratulations you win! You guessed the sequence #{input} with #{guesses} guesses in #{final_time} minutes, #{final_time2} seconds.
-    \nDo you want to (p)lay again or (q)uit?"
+    "Congratulations you win! You guessed the sequence #{input} with #{guesses} guesses in #{final_time} minutes, #{final_time2} seconds."
   end
 
 end

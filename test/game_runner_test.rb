@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-require './lib/game'
+require './lib/game_runner'
 require './lib/mastermind'
 
 
@@ -25,6 +25,7 @@ class GameTest < Minitest::Test
   end
 
   def test_input_valid
+    game.mastermind.level = "beginner"
     game.mastermind.generate_secret_pins
     assert game.check_input_valid("rrrr")
   end

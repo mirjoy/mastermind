@@ -4,7 +4,7 @@ require 'minitest/pride'
 require './lib/mastermind'
 
 class MastermindTest < Minitest::Test
-  attr_reader :msg, :mastermind
+  attr_reader :mastermind
 
   def setup
     @mastermind = Mastermind.new
@@ -32,7 +32,6 @@ class MastermindTest < Minitest::Test
   def test_it_generates_pins
     pins = mastermind.generate_secret_pins
     assert_equal 4, pins.length
-    assert pins.include?('r' || 'y' || 'g' || 'b')
   end
 
   def test_guess_length_is_valid
@@ -82,5 +81,9 @@ class MastermindTest < Minitest::Test
   def test_level_chosen
     mastermind.select_level("i")
     assert_equal 6, mastermind.num_pins
+  end
+
+  def test_valid_level_choice
+    assert mastermind.valid_level_choice?('b')
   end
 end
