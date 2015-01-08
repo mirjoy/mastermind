@@ -30,5 +30,5 @@ class Menu
   end
 end
 
-# new_game = Menu.new
-# new_game.game_menu
+new_game = Menu.new
+new_game.game_menu
