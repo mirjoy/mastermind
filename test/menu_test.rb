@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-require './lib/play_game'
+require './lib/menu'
 
 class MenuTest < Minitest::Test
   attr_reader :menu

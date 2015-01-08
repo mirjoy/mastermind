@@ -38,7 +38,7 @@ class MasterMessage
   end
 
   def feedback(secret_pins, input, correct_colors, correct_pin_places, guesses)
-    puts "Solution: #{secret_pins}. You guessed #{input}. You have #{correct_colors} of the correct elements with #{correct_pin_places} in the correct positions.\nYou've taken #{guesses} guess(es)."
+    puts "You guessed #{input}. You have #{correct_colors} of the correct elements with #{correct_pin_places} in the correct positions.\nYou've taken #{guesses} guess(es)."
   end
 
   def choose_level
